@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# ZendSkeletonApplication
+# Doctrine, design patterns for Zend 3
 
 ## Introduction
 
@@ -223,5 +222,3 @@ $ composer cs-fix
 $ composer test
 ```
 =======
-# zend3-doctrine
->>>>>>> 7d8e006cd9a77a84d6dca4c82b301ee060c39ebb
