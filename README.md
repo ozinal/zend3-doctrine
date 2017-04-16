@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ZendSkeletonApplication
 
 ## Introduction
@@ -221,3 +222,6 @@ $ composer cs-fix
 # Run PHPUnit tests:
 $ composer test
 ```
+=======
+# zend3-doctrine
+>>>>>>> 7d8e006cd9a77a84d6dca4c82b301ee060c39ebb
