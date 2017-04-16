@@ -16,7 +16,9 @@ use Zend\Diactoros\Response\JsonResponse;
 use Application\Entity\Company;
 use Application\Repository\CompanyRepository;
 use Application\Service\CompanyService;
+use Application\Service\DBAL\CompanyService as DBALCompanyService;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class CompanyController extends AbstractActionController
 {
@@ -105,5 +107,30 @@ class CompanyController extends AbstractActionController
         }
 
         return new JsonResponse([]);
+    }
+
+    public function dbalAction()
+    {
+        $service = new DBALCompanyService();
+        $sql = 'SELECT * FROM ' . $service->getTableName() . ' ORDER BY last_name ASC, first_name ASC';
+        return new JsonResponse([]);
+    }
+
+    public function dqlAction()
+    {
+        define('ENTITY', 'Application\Entity\Company');
+
+        $service = new CompanyService();
+
+        $query = $this->entityManager->createQuery('SELECT p FROM '. ENTITY . ' AS p WHERE p.id = :id');
+        $query->setParameter('id', 2);
+
+        if($company = $query->getSingleResult())
+        {
+            $output = $service->showCompany($company);
+            var_dump($output);
+            exit();
+        }
+        return new JsonResponse();
     }
 }
