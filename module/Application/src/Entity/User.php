@@ -17,6 +17,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @property string $lastName
  * @property string $email
  * @property string $password
+ * @property int $balance
  * @property string $accessLevel
  * @property string $status
  * @property string $created
@@ -59,9 +60,14 @@ class User implements InputFilterAwareInterface
     protected $email;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", unique=true, length=32)
      */
     protected $password;
+
+    /**
+     * @ORM\Column(type="decimal",precision=15,scale=2)
+     */
+    protected $balance;
 
     /**
      * @ORM\Column(type="integer", length=4)
@@ -153,6 +159,7 @@ class User implements InputFilterAwareInterface
         $this->lastName     = $data['lastName'];
         $this->email        = $data['email'];
         $this->password     = $data['password'];
+        $this->balance      = $data['balance'];
         $this->accessLevel  = $data['accessLevel'];
         $this->status       = $data['status'];
         $this->created      = $data['created'];

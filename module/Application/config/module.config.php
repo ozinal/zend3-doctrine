@@ -44,6 +44,16 @@ return [
                     ],
                 ],
             ],
+            'user' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/user[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\UserController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'doctrine' => [
@@ -64,7 +74,8 @@ return [
         'factories' => [
 //            Controller\IndexController::class => InvokableFactory::class,
             Controller\IndexController::class => Controller\IndexControllerFactory::class,
-            Controller\CompanyController::class => Controller\CompanyControllerFactory::class
+            Controller\CompanyController::class => Controller\CompanyControllerFactory::class,
+            Controller\UserController::class => Controller\UserControllerFactory::class
         ],
     ],
     'view_manager' => [
