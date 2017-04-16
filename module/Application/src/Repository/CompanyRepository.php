@@ -25,7 +25,8 @@ class CompanyRepository extends EntityRepository
     {
         // sanitize data
         $data = $this->checkData($data);
-        if(!$data)
+
+        if(!$company)
         {
             // create new instance of entity
             $company = new Company();
@@ -36,7 +37,7 @@ class CompanyRepository extends EntityRepository
         // Note : if 'id' field blank, 'persist()' will INSERT
 
         try {
-            $this->getEntityManager()->persist();
+            $this->getEntityManager()->persist($company);
             $this->getEntityManager()->flush();
         } catch (\Exception $e) {
             // log info
@@ -91,5 +92,7 @@ class CompanyRepository extends EntityRepository
         if(!isset($data['lat']))            { $data['lat'] = ''; }
         if(!isset($data['lng']))            { $data['lng'] = ''; }
         if(!isset($data['countryId']))      { $data['countryId'] = ''; }
+
+        return $data;
     }
 }
