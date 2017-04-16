@@ -39,6 +39,7 @@ Thumbs.db
 # IDE generated files #
 #######################
 .idea
-
+.idea/
+.idea/*
 # Specific files #
 config/autoload/local.php
