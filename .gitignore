@@ -36,5 +36,9 @@
 ehthumbs.db
 Thumbs.db
 
+# IDE generated files #
+#######################
+.idea
+
 # Specific files #
 config/autoload/local.php

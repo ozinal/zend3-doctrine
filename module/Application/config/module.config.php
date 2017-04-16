@@ -34,6 +34,16 @@ return [
                     ],
                 ],
             ],
+            'company' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/company[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\CompanyController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'doctrine' => [
@@ -53,7 +63,8 @@ return [
     'controllers' => [
         'factories' => [
 //            Controller\IndexController::class => InvokableFactory::class,
-            Controller\IndexController::class => Controller\IndexControllerFactory::class
+            Controller\IndexController::class => Controller\IndexControllerFactory::class,
+            Controller\CompanyController::class => Controller\CompanyControllerFactory::class
         ],
     ],
     'view_manager' => [
