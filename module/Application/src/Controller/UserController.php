@@ -1,6 +1,7 @@
 <?php
 namespace Application\Controller;
 
+use Application\Service\UserService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManager;
@@ -30,6 +31,16 @@ class UserController extends AbstractActionController
 
     public function indexAction()
     {
-        return new JsonResponse([]);
+        // NOTE: find one specific occurrence
+        $user  = $this->entityManager->find('Application\Entity\User', 27);
+        if($user)
+        {
+            $service    = new UserService();
+            $userData   = $service->showUser($user);
+        }
+
+        return new JsonResponse([
+            'userData' => $user
+        ]);
     }
 }

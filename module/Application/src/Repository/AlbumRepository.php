@@ -23,7 +23,7 @@ class AlbumRepository extends EntityRepository
      * Data is assumed to be in the form of an array with the following fields:
      * album, title
      * @param array $data
-     * @param Application\Entity\Album $album
+     * @param Album|NULL $album
      * @return bool
      */
     public function save(array $data, Album $album = NULL)

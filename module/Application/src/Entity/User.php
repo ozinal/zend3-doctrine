@@ -153,7 +153,7 @@ class User implements InputFilterAwareInterface
      */
     public function exchangeArray($data = [])
     {
-        $this->ID_User      = $data['id'];
+        $this->id           = $data['id'];
         $this->userName     = $data['userName'];
         $this->firstName    = $data['firstName'];
         $this->lastName     = $data['lastName'];
