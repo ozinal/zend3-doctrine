@@ -49,7 +49,7 @@ class UserController extends AbstractActionController
         $user = $this->userRepository->findById(38);
 
 
-        var_dump($user);
+        var_dump($user->getCompanyId()->getCompanyName());
         exit();
     }
 }
