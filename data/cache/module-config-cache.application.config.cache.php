@@ -578,7 +578,7 @@ return array (
           'port' => '3306',
           'user' => 'root',
           'password' => 'challenge',
-          'dbname' => 'alkirala',
+          'dbname' => 'alkirala_slave',
         ),
         'driverClass' => 'Doctrine\\DBAL\\Driver\\PDOMySql\\Driver',
       ),

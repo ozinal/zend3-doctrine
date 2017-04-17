@@ -9,7 +9,7 @@ use Zend\InputFilter\InputFilterInterface;
 
 /**
  * Class User
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Application\Repository\UserRepository")
  * @ORM\Table(name="user")
  * @property int $id
  * @property string $userName
@@ -111,6 +111,7 @@ class User implements InputFilterAwareInterface
 
     /**
      * @ORM\Column(type="integer", length=11, name="ID_Company")
+     * @ORM\OneToOne(targetEntity="Application\Entity\Company", mappedBy="User", cascade={"persist"})
      */
     protected $companyId;
 
@@ -437,5 +438,53 @@ class User implements InputFilterAwareInterface
 
             $this->inputFilter = $inputFilter;
         }
+    }
+
+    /**
+     * @return the $companyId
+     */
+    public function getCompanyId()
+    {
+        return $this->companyId;
+    }
+
+    /**
+     * @param field_type $companyId
+     */
+    public function setCompanyId($companyId)
+    {
+        $this->companyId = $companyId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    /**
+     * @param mixed $userName
+     */
+    public function setUserName($userName)
+    {
+        $this->userName = $userName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }

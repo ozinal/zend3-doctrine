@@ -2,6 +2,7 @@
 namespace Application\Repository;
 
 use Application\Entity\Company;
+use Application\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 class CompanyRepository extends EntityRepository
@@ -18,7 +19,7 @@ class CompanyRepository extends EntityRepository
      * id, ip. companyName, address1, address2, address3, address4, postCode, telephone1, telephone2, webSite, status, lat, lng, countryId
      *
      * @param array $data
-     * @param Application\Entity\Company $company
+     * @param Company $company
      * @return bool
      */
     public function save(array $data, Company $company = NULL)

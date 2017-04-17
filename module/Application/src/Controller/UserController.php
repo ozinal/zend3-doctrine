@@ -25,7 +25,7 @@ class UserController extends AbstractActionController
         }
 
         if(null === $this->userRepository) {
-            $this->userRepository = new UserRepository($this->entityManager, new ClassMetadata('Application\Entity\Company'));
+            $this->userRepository = new UserRepository($this->entityManager, new ClassMetadata('Application\Entity\User'));
         }
     }
 
@@ -42,5 +42,14 @@ class UserController extends AbstractActionController
         return new JsonResponse([
             'userData' => $user
         ]);
+    }
+
+    public function editAction()
+    {
+        $user = $this->userRepository->findById(38);
+
+
+        var_dump($user);
+        exit();
     }
 }

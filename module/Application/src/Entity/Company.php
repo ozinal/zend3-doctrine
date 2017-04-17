@@ -398,4 +398,20 @@ class Company implements InputFilterAwareInterface
             $this->inputFilter = $inputFilter;
         }
     }
+
+    /**
+     * @return the $companyName
+     */
+    public function getCompanyName()
+    {
+        return $this->companyName;
+    }
+
+    /**
+     * @param field_type $companyName
+     */
+    public function setCompanyName($companyName)
+    {
+        $this->companyName = $companyName;
+    }
 }

@@ -8,7 +8,7 @@ class UserRepository extends EntityRepository
 {
     public function findById($id)
     {
-        return $this->findOneBy($id);
+        return $this->findOneBy(['id' => $id]);
     }
 
     /**
@@ -20,7 +20,7 @@ class UserRepository extends EntityRepository
      * @param User|NULL $user
      * @return bool|mixed
      */
-    public function save(array $data, User $user = NULL)
+    public function saveProfile(array $data, User $user = NULL)
     {
         // sanitize data
         $data = $this->checkData($data);
@@ -45,8 +45,19 @@ class UserRepository extends EntityRepository
         return $user->__get('id');
     }
 
-    protected function setData($data, User $user)
+    /**
+     * Calls setters to assign $data to properties in $profile
+     *
+     * @param array $data
+     * @param User $user
+     * @return User $user
+     */
+    protected function setUserData($data, User $user)
     {
+        if(!$user) {
+            $user = new User();
+        }
+
         $user->__set('userName', $data['userName']);
         $user->__set('firstName', $data['firstName']);
         $user->__set('lastName', $data['lastName']);
@@ -62,6 +73,8 @@ class UserRepository extends EntityRepository
         $user->__set('token', $data['token']);
         $user->__set('countryId', $data['countryId']);
         $user->__set('companyId', $data['companyId']);
+
+        return $user;
     }
 
     /**
