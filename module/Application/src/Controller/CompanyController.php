@@ -133,4 +133,10 @@ class CompanyController extends AbstractActionController
         }
         return new JsonResponse();
     }
+
+    public function queryAction()
+    {
+        $company = $this->companyRepository->findById(2);
+
+    }
 }

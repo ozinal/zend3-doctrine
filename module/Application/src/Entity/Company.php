@@ -414,4 +414,20 @@ class Company implements InputFilterAwareInterface
     {
         $this->companyName = $companyName;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCountryId()
+    {
+        return $this->countryId;
+    }
+
+    /**
+     * @param mixed $countryId
+     */
+    public function setCountryId($countryId)
+    {
+        $this->countryId = $countryId;
+    }
 }
