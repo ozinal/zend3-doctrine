@@ -73,9 +73,11 @@ return [
     'controllers' => [
         'factories' => [
 //            Controller\IndexController::class => InvokableFactory::class,
-            Controller\IndexController::class => Controller\IndexControllerFactory::class,
-            Controller\CompanyController::class => Controller\CompanyControllerFactory::class,
-            Controller\UserController::class => Controller\UserControllerFactory::class
+            Controller\IndexController::class       => Controller\IndexControllerFactory::class,
+            Controller\CompanyController::class     => Controller\CompanyControllerFactory::class,
+            Controller\UserController::class        => Controller\UserControllerFactory::class,
+            Controller\CategoryController::class    => Controller\CategoryControllerFactory::class,
+            Controller\PostController::class        => Controller\PostControllerFactory::class
         ],
     ],
     'view_manager' => [
