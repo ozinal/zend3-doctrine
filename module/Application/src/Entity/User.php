@@ -2,6 +2,7 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
@@ -12,21 +13,6 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\Entity(repositoryClass="Application\Repository\UserRepository")
  * @ORM\Table(name="user")
  * @property int $id
- * @property string $userName
- * @property string $firstName
- * @property string $lastName
- * @property string $email
- * @property string $password
- * @property int $balance
- * @property string $accessLevel
- * @property string $status
- * @property string $created
- * @property string $modified
- * @property string $loggedOn
- * @property string $loggedOff
- * @property string $token
- * @property int $countryId
- * @property int $companyId
  */
 class User implements InputFilterAwareInterface
 {
@@ -105,13 +91,13 @@ class User implements InputFilterAwareInterface
     protected $token;
 
     /**
-     * @ORM\Column(type="integer", length=11, name="ID_Country")
+     * @ORM\OneToOne(targetEntity="Application\Entity\Country", cascade={"persist"})
+     * @ORM\JoinColumn(name="ID_Country", referencedColumnName="ID_Country")
      */
-    protected $countryId;
+    protected $ID_Country;
 
     /**
      * @ORM\Column(type="integer", length=11, name="ID_Company")
-     * @ORM\OneToOne(targetEntity="Application\Entity\Company", mappedBy="User", cascade={"persist"})
      */
     protected $companyId;
 
@@ -441,7 +427,7 @@ class User implements InputFilterAwareInterface
     }
 
     /**
-     * @return the $companyId
+     * @return int $companyId
      */
     public function getCompanyId()
     {
@@ -449,7 +435,7 @@ class User implements InputFilterAwareInterface
     }
 
     /**
-     * @param field_type $companyId
+     * @param int $companyId
      */
     public function setCompanyId($companyId)
     {
@@ -486,5 +472,21 @@ class User implements InputFilterAwareInterface
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountryId()
+    {
+        return $this->ID_Country;
+    }
+
+    /**
+     * @param mixed $countryId
+     */
+    public function setCountryId($countryId)
+    {
+        $this->ID_Country = $countryId;
     }
 }

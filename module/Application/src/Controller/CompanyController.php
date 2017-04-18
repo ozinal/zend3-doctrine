@@ -137,6 +137,7 @@ class CompanyController extends AbstractActionController
     public function queryAction()
     {
         $company = $this->companyRepository->findById(2);
-
+        var_dump($company->getCountryId()->getText());
+        exit();
     }
 }

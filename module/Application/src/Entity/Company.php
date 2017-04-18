@@ -2,14 +2,14 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
 /**
- * Class Companies
- * @ORM\Entity
+ * @ORM\Entity("Application\Entity\Company")
  * @ORM\Table(name="company")
  * @property int $id
  */
@@ -89,8 +89,16 @@ class Company implements InputFilterAwareInterface
      */
     protected $lng;
 
+    // NOTE: need to add cascade={"persist"} to save without 1st saving profile instance
+    //       @ORM\OneToOne(targetEntity="Application\Entity\Profile", cascade={"persist"})
+    //       need to add cascade={"remove"} to remove without 1st removing profile instance
+    //       @ORM\OneToOne(targetEntity="Application\Entity\Profile", cascade={"remove"})
+    //       or ... if you want to do both:
+    //       @ORM\OneToOne(targetEntity="Application\Entity\Profile", cascade={"persist","remove"})
     /**
+     *
      * @ORM\Column(type="integer", length=11, name="ID_Country")
+     * @ORM\OneToOne(targetEntity="Application\Entity\Country", cascade={"persist","remove"})
      */
     protected $countryId;
 

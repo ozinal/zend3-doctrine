@@ -46,10 +46,9 @@ class UserController extends AbstractActionController
 
     public function editAction()
     {
-        $user = $this->userRepository->findById(38);
+        $user = $this->userRepository->findById(2);
+        var_dump($user->getCountryId()->getText());
 
-
-        var_dump($user->getCompanyId()->getCompanyName());
         exit();
     }
 }

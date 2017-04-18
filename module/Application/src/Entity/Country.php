@@ -9,7 +9,7 @@ use Zend\InputFilter\InputFilterInterface;
 
 /**
  * Class Country
- * @ORM\Entity
+ * @ORM\Entity("Application\Entity\Country")
  * @ORM\Table(name="country")
  * @property int $id
  */
@@ -138,5 +138,21 @@ class Country implements InputFilterAwareInterface
 
             $this->inputFilter = $inputFilter;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @param mixed $text
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
     }
 }
