@@ -91,7 +91,7 @@ class User implements InputFilterAwareInterface
     protected $token;
 
     /**
-     * @ORM\OneToOne(targetEntity="Application\Entity\Country", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Application\Entity\Country", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="ID_Country", referencedColumnName="ID_Country")
      */
     protected $ID_Country;

@@ -49,6 +49,8 @@ class UserController extends AbstractActionController
         $user = $this->userRepository->findById(2);
         var_dump($user->getCountryId()->getText());
 
-        exit();
+        return new ViewModel([
+
+        ]);
     }
 }
