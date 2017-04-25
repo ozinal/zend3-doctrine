@@ -20,7 +20,7 @@ class UserRepository extends EntityRepository
      * @param User|NULL $user
      * @return bool|mixed
      */
-    public function saveProfile(array $data, User $user = NULL)
+    public function save(array $data, User $user = NULL)
     {
         // sanitize data
         $data = $this->checkData($data);
@@ -52,7 +52,7 @@ class UserRepository extends EntityRepository
      * @param User $user
      * @return User $user
      */
-    protected function setUserData($data, User $user)
+    protected function setData($data, User $user)
     {
         if(!$user) {
             $user = new User();
