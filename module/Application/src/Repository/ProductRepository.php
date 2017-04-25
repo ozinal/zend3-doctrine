@@ -2,9 +2,9 @@
 namespace Application\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Application\Entity\Post;
+use Application\Entity\Product;
 
-class PostRepository extends EntityRepository
+class ProductRepository extends EntityRepository
 {
     public function findById($id)
     {
@@ -14,27 +14,27 @@ class PostRepository extends EntityRepository
     /**
      * 'persists' data
      * Data is assumed to be in the form of an array with the following fields:
-     * userName, firstName, lastName, email, password, balance, accessLevel, status, created, modified, loggedOn, loggedOff, token, countryId, companyId
+     * sku, title, description, dateTime, categoryId
      *
      * @param array $data
-     * @param Post|NULL $user
+     * @param Product |NULL $product
      * @return bool|mixed
      */
-    public function save(array $data, Post $post = NULL)
+    public function save(array $data, Product $product = NULL)
     {
         // sanitize data
         $data = $this->checkData($data);
-        if(!$post) {
+        if(!$product) {
             // create new instance of entity
-            $post = new Post();
+            $product = new Product();
         }
 
-        $this->setData($data, $post);
+        $this->setData($data, $product);
 
         // NOTE: if 'id' field blank, 'persists()' will INSERT
 
         try {
-            $this->getEntityManager()->persist($post);
+            $this->getEntityManager()->persist($product);
             $this->getEntityManager()->flush();
         } catch (\Exception $e) {
             // log info
@@ -42,29 +42,31 @@ class PostRepository extends EntityRepository
         }
 
         // return the last insert id
-        return $post->__get('id');
+        return $product->__get('id');
     }
 
     /**
      * Calls setters to assign $data to properties in $profile
      *
      * @param array $data
-     * @param Post $user
-     * @return Post $user
+     * @param Product $product
+     * @return Product $product
+     * @internal param Product $pro
      */
-    protected function setData($data, Post $post)
+    protected function setData($data, Product $product)
     {
-        if(!$post) {
-            $post = new Post();
+        if(!$product) {
+            $product = new Product();
         }
 
-        $post->__set('title', $data['title']);
-        $post->__set('description', $data['description']);
-        $post->__set('productId', $data['productId']);
-        $post->__set('categoryId', $data['categoryId']);
-        $post->__set('dateTime', $data['dateTime']);
+        $product->__set('id', $data['id']);
+        $product->__set('sku', $data['sku']);
+        $product->__set('title', $data['title']);
+        $product->__set('description', $data['description']);
+        $product->__set('dateTime', $data['dateTime']);
+        $product->__set('categoryId', $data['categoryId']);
 
-        return $post;
+        return $product;
     }
 
     /**
@@ -77,11 +79,11 @@ class PostRepository extends EntityRepository
      */
     protected function checkData(array $data)
     {
+        if(!isset($data['sku']))         { $data['sku'] = ''; }
         if(!isset($data['title']))       { $data['title'] = ''; }
         if(!isset($data['description'])) { $data['description'] = ''; }
-        if(!isset($data['productId']))   { $data['productId'] = ''; }
-        if(!isset($data['categoryId']))  { $data['categoryId'] = ''; }
         if(!isset($data['dateTime']))    { $data['dateTime'] = ''; }
+        if(!isset($data['categoryId']))  { $data['categoryId'] = ''; }
 
         return $data;
     }

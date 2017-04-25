@@ -2,9 +2,9 @@
 namespace Application\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Application\Entity\Post;
+use Application\Entity\Category;
 
-class PostRepository extends EntityRepository
+class CategoryRepository extends EntityRepository
 {
     public function findById($id)
     {
@@ -14,27 +14,27 @@ class PostRepository extends EntityRepository
     /**
      * 'persists' data
      * Data is assumed to be in the form of an array with the following fields:
-     * userName, firstName, lastName, email, password, balance, accessLevel, status, created, modified, loggedOn, loggedOff, token, countryId, companyId
+     * title, description, dateTime, parentId
      *
      * @param array $data
-     * @param Post|NULL $user
+     * @param Category|NULL $category
      * @return bool|mixed
      */
-    public function save(array $data, Post $post = NULL)
+    public function save(array $data, Category $category = NULL)
     {
         // sanitize data
         $data = $this->checkData($data);
-        if(!$post) {
+        if(!$category) {
             // create new instance of entity
-            $post = new Post();
+            $category = new Category();
         }
 
-        $this->setData($data, $post);
+        $this->setData($data, $category);
 
         // NOTE: if 'id' field blank, 'persists()' will INSERT
 
         try {
-            $this->getEntityManager()->persist($post);
+            $this->getEntityManager()->persist($category);
             $this->getEntityManager()->flush();
         } catch (\Exception $e) {
             // log info
@@ -42,29 +42,29 @@ class PostRepository extends EntityRepository
         }
 
         // return the last insert id
-        return $post->__get('id');
+        return $category->__get('id');
     }
 
     /**
      * Calls setters to assign $data to properties in $profile
      *
      * @param array $data
-     * @param Post $user
-     * @return Post $user
+     * @param Category $category
+     * @return Category $user
+     * @internal param Category $user
      */
-    protected function setData($data, Post $post)
+    protected function setData($data, Category $category)
     {
-        if(!$post) {
-            $post = new Post();
+        if(!$category) {
+            $category = new Category();
         }
 
-        $post->__set('title', $data['title']);
-        $post->__set('description', $data['description']);
-        $post->__set('productId', $data['productId']);
-        $post->__set('categoryId', $data['categoryId']);
-        $post->__set('dateTime', $data['dateTime']);
+        $category->__set('title', $data['title']);
+        $category->__set('description', $data['description']);
+        $category->__set('dateTime', $data['dateTime']);
+        $category->__set('parentId', $data['parentId']);
 
-        return $post;
+        return $category;
     }
 
     /**
@@ -79,9 +79,8 @@ class PostRepository extends EntityRepository
     {
         if(!isset($data['title']))       { $data['title'] = ''; }
         if(!isset($data['description'])) { $data['description'] = ''; }
-        if(!isset($data['productId']))   { $data['productId'] = ''; }
-        if(!isset($data['categoryId']))  { $data['categoryId'] = ''; }
         if(!isset($data['dateTime']))    { $data['dateTime'] = ''; }
+        if(!isset($data['parentId']))    { $data['parentId'] = ''; }
 
         return $data;
     }
