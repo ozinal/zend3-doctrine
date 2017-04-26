@@ -46,9 +46,21 @@ class Post implements InputFilterAwareInterface
     protected $categoryId;
 
     /**
+     * @ORM\Column(type="integer", length=11, name="ID_User")
+     */
+    protected $userId;
+
+    /**
      * @ORM\Column(type="string", length=20, name="DateTime")
      */
     protected $dateTime;
+
+    /**
+     * many post: 1 user
+     * @ManyToOne(targetEntity="Application\Entity\User", inversedBy="post")
+     * @JoinColumn(name="ID_User", referencedColumnName="ID_User")
+     */
+    protected $user;
 
     /**
      * Magic getter to expose protected properties

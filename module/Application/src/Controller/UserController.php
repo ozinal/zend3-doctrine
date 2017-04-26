@@ -53,4 +53,15 @@ class UserController extends AbstractActionController
 
         ]);
     }
+
+    public function manyToOneAction()
+    {
+        $user = $this->userRepository->findById(2);
+
+        foreach ($user->getPosts() as $post) {
+            print_r($post) . '<br />';
+        }
+
+        exit();
+    }
 }

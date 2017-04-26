@@ -102,6 +102,20 @@ class User implements InputFilterAwareInterface
     protected $companyId;
 
     /**
+     * 1 user:many posts
+     * @OneToMany(targetEntity="Application\Entity\Post", mappedBy="user")
+     */
+    protected $posts;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
+
+    /**
      * Magic getter to expose protected properties
      *
      * @param string $property
@@ -488,5 +502,21 @@ class User implements InputFilterAwareInterface
     public function setCountryId($countryId)
     {
         $this->ID_Country = $countryId;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts(): \Doctrine\Common\Collections\Collection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $posts
+     */
+    public function setPosts(\Doctrine\Common\Collections\Collection $posts)
+    {
+        $this->posts[] = $posts;
     }
 }

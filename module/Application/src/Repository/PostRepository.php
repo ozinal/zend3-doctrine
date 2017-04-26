@@ -49,8 +49,9 @@ class PostRepository extends EntityRepository
      * Calls setters to assign $data to properties in $profile
      *
      * @param array $data
-     * @param Post $user
+     * @param Post $post
      * @return Post $user
+     * @internal param Post $user
      */
     protected function setData($data, Post $post)
     {
@@ -62,6 +63,7 @@ class PostRepository extends EntityRepository
         $post->__set('description', $data['description']);
         $post->__set('productId', $data['productId']);
         $post->__set('categoryId', $data['categoryId']);
+        $post->__set('userId', $data['userId']);
         $post->__set('dateTime', $data['dateTime']);
 
         return $post;
@@ -81,6 +83,7 @@ class PostRepository extends EntityRepository
         if(!isset($data['description'])) { $data['description'] = ''; }
         if(!isset($data['productId']))   { $data['productId'] = ''; }
         if(!isset($data['categoryId']))  { $data['categoryId'] = ''; }
+        if(!isset($data['userId']))      { $data['userId'] = ''; }
         if(!isset($data['dateTime']))    { $data['dateTime'] = ''; }
 
         return $data;
