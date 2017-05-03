@@ -6,6 +6,7 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class Country
@@ -49,6 +50,16 @@ class Product implements InputFilterAwareInterface
      * @ORM\Column(type="integer", length=11, name="ID_Category")
      */
     protected $categoryId;
+
+    /**
+     * One Product has Many Features.
+     * @ORM\OneToMany(targetEntity="Application\Entity\Post", mappedBy="product")
+     */
+    protected $posts;
+
+    public function __construct() {
+        $this->posts = new ArrayCollection();
+    }
 
 
     /**
@@ -213,5 +224,37 @@ class Product implements InputFilterAwareInterface
 
             $this->inputFilter = $inputFilter;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param mixed $posts
+     */
+    public function setPosts($posts)
+    {
+        $this->posts[] = $posts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 }

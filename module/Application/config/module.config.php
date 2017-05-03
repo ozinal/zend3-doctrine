@@ -54,6 +54,16 @@ return [
                     ],
                 ],
             ],
+            'product' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/product[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\ProductController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'doctrine' => [
@@ -77,7 +87,8 @@ return [
             Controller\CompanyController::class     => Controller\CompanyControllerFactory::class,
             Controller\UserController::class        => Controller\UserControllerFactory::class,
             Controller\CategoryController::class    => Controller\CategoryControllerFactory::class,
-            Controller\PostController::class        => Controller\PostControllerFactory::class
+            Controller\PostController::class        => Controller\PostControllerFactory::class,
+            Controller\ProductController::class     => Controller\ProductControllerFactory::class
         ],
     ],
     'view_manager' => [

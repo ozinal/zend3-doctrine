@@ -56,11 +56,11 @@ class Post implements InputFilterAwareInterface
     protected $dateTime;
 
     /**
-     * many post: 1 user
-     * @ManyToOne(targetEntity="Application\Entity\User", inversedBy="post")
-     * @JoinColumn(name="ID_User", referencedColumnName="ID_User")
+     * Many Features have One Product.
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Product", inversedBy="posts")
+     * @ORM\JoinColumn(name="ID_Product", referencedColumnName="ID_Product")
      */
-    protected $user;
+    protected $product;
 
     /**
      * Magic getter to expose protected properties
@@ -224,5 +224,21 @@ class Post implements InputFilterAwareInterface
             return $inputFilter;
         }
         return $this->inputFilter;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 }

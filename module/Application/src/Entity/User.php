@@ -102,20 +102,6 @@ class User implements InputFilterAwareInterface
     protected $companyId;
 
     /**
-     * 1 user:many posts
-     * @OneToMany(targetEntity="Application\Entity\Post", mappedBy="user")
-     */
-    protected $posts;
-
-    /**
-     * User constructor.
-     */
-    public function __construct()
-    {
-        $this->posts = new ArrayCollection();
-    }
-
-    /**
      * Magic getter to expose protected properties
      *
      * @param string $property

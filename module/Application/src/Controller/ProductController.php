@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ozinal
- * Date: 18/04/17
- * Time: 00:01
- */
-
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -14,6 +7,7 @@ use Zend\Diactoros\Response\JsonResponse;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Application\Repository\ProductRepository;
 
 class ProductController extends AbstractActionController
 {
@@ -29,13 +23,20 @@ class ProductController extends AbstractActionController
 
         if(null === $this->productRepository)
         {
-            //TODO: implement product repo
+            $this->productRepository = new ProductRepository($this->entityManager, new ClassMetadata('Application\Entity\Product'));
         }
     }
 
     public function indexAction()
     {
-        //TODO: implement ProductService
+        $product = $this->productRepository->findById(2);
+        if($product) {
+            //echo $product->getTitle() . '</br>';
+
+            foreach ($product->getPosts() as $post) {
+                //echo $post->getTitle() .'</br >';
+            }
+        }
         return new JsonResponse([
             'productData'   => null
         ]);
