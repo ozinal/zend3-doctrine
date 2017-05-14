@@ -9,12 +9,12 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
 /**
- * Class Post
- * @ORM\Entity("Application\Entity\Post")
- * @ORM\Table(name="post")
+ * Class Order
+ * @ORM\Entity("Application\Entity\Order")
+ * @ORM\Table(name="order")
  * @property int $id
  */
-class Post implements InputFilterAwareInterface
+class Order implements InputFilterAwareInterface
 {
     protected $inputFilter;
 
@@ -26,24 +26,24 @@ class Post implements InputFilterAwareInterface
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=250)
+     * @ORM\Column(type="string", length=32)
      */
-    protected $title;
+    protected $transaction;
 
     /**
-     * @ORM\Column(type="string", length=65535)
+     * @ORM\Column(type="datetime")
      */
-    protected $description;
+    protected $dateTime;
 
     /**
-     * @ORM\Column(type="integer", length=11)
+     * @ORM\Column(type="integer", length=10)
      */
-    protected $productId;
+    protected $quantity;
 
     /**
-     * @ORM\Column(type="integer", length=11)
+     * @ORM\Column(type="decimal", precision=15, scale=4)
      */
-    protected $categoryId;
+    protected $salePrice;
 
     /**
      * @ORM\Column(type="integer", length=11)
@@ -51,23 +51,9 @@ class Post implements InputFilterAwareInterface
     protected $userId;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="integer", length=11)
      */
-    protected $dateTime;
-
-    /**
-     * Many Features have One Product.
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Product", inversedBy="posts")
-     * @ORM\JoinColumn(name="id", referencedColumnName="id")
-     */
-    protected $product;
-
-    /**
-     * many posts:1 user
-     * @ORM\ManyToOne(targetEntity="Application\Entity\User", inversedBy="posts")
-     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
-     */
-    protected $user;
+    protected $productId;
 
     /**
      * Magic getter to expose protected properties
@@ -103,11 +89,12 @@ class Post implements InputFilterAwareInterface
     public function exchangeArray($data = [])
     {
         $this->id               = $data['id'];
-        $this->title            = $data['title'];
-        $this->description      = $data['description'];
-        $this->productId        = $data['productId'];
-        $this->categoryId       = $data['categoryId'];
+        $this->transaction      = $data['transaction'];
         $this->dateTime         = $data['dateTime'];
+        $this->quantity         = $data['quantity'];
+        $this->salePrice        = $data['salePrice'];
+        $this->userId           = $data['userId'];
+        $this->productId        = $data['productId'];
     }
 
     /**
@@ -144,7 +131,7 @@ class Post implements InputFilterAwareInterface
             ]);
 
             $inputFilter->add([
-                'name'      => 'title',
+                'name'      => 'transaction',
                 'required'  => true,
                 'filters'   => [
                     ['name' => 'StripTags'],
@@ -158,55 +145,6 @@ class Post implements InputFilterAwareInterface
                             'min'       => 10,
                             'max'       => 250
                         ]
-                    ]
-                ]
-            ]);
-
-            $inputFilter->add([
-                'name'      => 'description',
-                'required'  => true,
-                'filters'   => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim']
-                ],
-                'validators'    => [
-                    [
-                        'name'      => 'StringLength',
-                        'options'   => [
-                            'encoding'  => 'UTF-8',
-                            'min'       => 0,
-                            'max'       => 65535
-                        ]
-                    ]
-                ]
-            ]);
-
-            $inputFilter->add([
-                'name'      => 'productId',
-                'required'  => true,
-                'filters'   => [
-                    [
-                        'name' => 'Int'
-                    ]
-                ]
-            ]);
-
-            $inputFilter->add([
-                'name'      => 'categoryId',
-                'required'  => true,
-                'filters'   => [
-                    [
-                        'name' => 'Int'
-                    ]
-                ]
-            ]);
-
-            $inputFilter->add([
-                'name'      => 'productId',
-                'required'  => true,
-                'filters'   => [
-                    [
-                        'name' => 'Int'
                     ]
                 ]
             ]);
@@ -228,24 +166,58 @@ class Post implements InputFilterAwareInterface
                 ]
             ]);
 
+            $inputFilter->add([
+                'name'      => 'quantity',
+                'required'  => true,
+                'filters'   => [
+                    [
+                        'name' => 'Int'
+                    ]
+                ]
+            ]);
+
+            $inputFilter->add([
+                'name'      => 'quantity',
+                'required'  => true,
+                'filters'   => [
+                    [
+                        'name' => 'Int'
+                    ]
+                ]
+            ]);
+
+            $inputFilter->add([
+                'name'      => 'salePrice',
+                'required'  => true,
+                'filters'   => [
+                    [
+                        'name' => 'Int'
+                    ]
+                ]
+            ]);
+
+            $inputFilter->add([
+                'name'      => 'userId',
+                'required'  => true,
+                'filters'   => [
+                    [
+                        'name' => 'Int'
+                    ]
+                ]
+            ]);
+
+            $inputFilter->add([
+                'name'      => 'productId',
+                'required'  => true,
+                'filters'   => [
+                    [
+                        'name' => 'Int'
+                    ]
+                ]
+            ]);
+
             return $inputFilter;
         }
         return $this->inputFilter;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
     }
 }

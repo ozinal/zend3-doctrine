@@ -78,8 +78,8 @@ class UserController extends AbstractActionController
         if($user) {
             echo $user->getFirstName(). '<br />';
 
-            foreach ($user->getProducts() as $product) {
-                echo 'Product : ' . $product->getTitle(). ' SKU : ' . $product->getSku() . '<br />';
+            foreach ($user->getPosts() as $post) {
+                echo 'Post Title : ' . $post->getTitle(). '<br />';
             }
         }
 

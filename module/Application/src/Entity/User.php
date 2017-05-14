@@ -51,7 +51,7 @@ class User implements InputFilterAwareInterface
     protected $password;
 
     /**
-     * @ORM\Column(type="decimal",precision=15, scale=2)
+     * @ORM\Column(type="decimal", precision=15, scale=2)
      */
     protected $balance;
 
@@ -102,6 +102,15 @@ class User implements InputFilterAwareInterface
     protected $companyId;
 
     /**
+     * 1 user:many post
+     * @var \Doctrine\Common\Collections\Collection
+     * @ORM\OneToMany(targetEntity="Application\Entity\Post",
+     *                mappedBy="user", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
+     */
+    protected $posts;
+
+    /**
      * many customers:many products
      * NOTE: you don't need to specify "mappedBy" as both sides could be considering "owning"
      * @ORM\ManyToMany(targetEntity="Application\Entity\Product", mappedBy="users")
@@ -116,6 +125,7 @@ class User implements InputFilterAwareInterface
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->posts    = new ArrayCollection();
     }
 
     /**
