@@ -20,45 +20,45 @@ class Post implements InputFilterAwareInterface
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer", length=20, name="ID_Post")
+     * @ORM\Column(type="integer", length=20)
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=250, name="Title")
+     * @ORM\Column(type="string", length=250)
      */
     protected $title;
 
     /**
-     * @ORM\Column(type="string", length=65535, name="Description")
+     * @ORM\Column(type="string", length=65535)
      */
     protected $description;
 
     /**
-     * @ORM\Column(type="integer", length=11, name="ID_Product")
+     * @ORM\Column(type="integer", length=11)
      */
     protected $productId;
 
     /**
-     * @ORM\Column(type="integer", length=11, name="ID_Category")
+     * @ORM\Column(type="integer", length=11)
      */
     protected $categoryId;
 
     /**
-     * @ORM\Column(type="integer", length=11, name="ID_User")
+     * @ORM\Column(type="integer", length=11)
      */
     protected $userId;
 
     /**
-     * @ORM\Column(type="string", length=20, name="DateTime")
+     * @ORM\Column(type="string", length=20)
      */
     protected $dateTime;
 
     /**
      * Many Features have One Product.
      * @ORM\ManyToOne(targetEntity="Application\Entity\Product", inversedBy="posts")
-     * @ORM\JoinColumn(name="ID_Product", referencedColumnName="ID_Product")
+     * @ORM\JoinColumn(name="id", referencedColumnName="id")
      */
     protected $product;
 

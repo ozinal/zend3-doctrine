@@ -19,20 +19,20 @@ class Country implements InputFilterAwareInterface
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer", length=11, name="ID_Country")
+     * @ORM\Column(type="integer", length=11)
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="integer", length=11, name="Type")
+     * @ORM\Column(type="integer", length=11)
      */
     protected $type;
 
     /**
-     * @ORM\Column(type="string", length=30, name="Text")
+     * @ORM\Column(type="string", length=30)
      */
-    protected $text;
+    protected $name;
 
     /**
      * Magic getter to expose protected properties
@@ -70,7 +70,7 @@ class Country implements InputFilterAwareInterface
     {
         $this->id       = $data['id'];
         $this->type     = $data['type'];
-        $this->text     = $data['text'];
+        $this->name     = $data['namr'];
     }
 
 
@@ -117,7 +117,7 @@ class Country implements InputFilterAwareInterface
             ]);
 
             $inputFilter->add([
-                'name'      => 'text',
+                'name'      => 'name',
                 'required'  => true,
                 'filters'    => [
                     ['name' => 'StripTags'],
@@ -143,16 +143,16 @@ class Country implements InputFilterAwareInterface
     /**
      * @return mixed
      */
-    public function getText()
+    public function getName()
     {
-        return $this->text;
+        return $this->name;
     }
 
     /**
-     * @param mixed $text
+     * @param mixed $name
      */
-    public function setText($text)
+    public function setName($name)
     {
-        $this->text = $text;
+        $this->name = $name;
     }
 }

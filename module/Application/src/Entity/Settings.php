@@ -21,7 +21,7 @@ class Settings implements InputFilterAwareInterface
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer", length=11, name="ID_Settings")
+     * @ORM\Column(type="integer", length=11)
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;

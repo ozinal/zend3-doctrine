@@ -20,34 +20,34 @@ class Product implements InputFilterAwareInterface
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer", length=11, name="ID_Product")
+     * @ORM\Column(type="integer", length=11)
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=45, name="SKU")
+     * @ORM\Column(type="string", length=45)
      */
     protected $sku;
 
     /**
-     * @ORM\Column(type="string", length=250, name="Title")
+     * @ORM\Column(type="string", length=250)
      */
     protected $title;
 
     /**
-     * @ORM\Column(type="string", length=65535, name="Description")
+     * @ORM\Column(type="string", length=65535)
      */
     protected $description;
 
     /**
-     * @ORM\Column(type="string", length=20, name="DateTime")
+     * @ORM\Column(type="string", length=20)
      */
     protected $dateTime;
 
 
     /**
-     * @ORM\Column(type="integer", length=11, name="ID_Category")
+     * @ORM\Column(type="integer", length=11)
      */
     protected $categoryId;
 
@@ -57,8 +57,20 @@ class Product implements InputFilterAwareInterface
      */
     protected $posts;
 
+    /**
+     * many customers:many products
+     * NOTE: you don't need to specify "inversedBy" as both sides could be considering "inverse"
+     * @ORM\ManyToMany(targetEntity="Application\Entity\User", inversedBy="products")
+     * @ORM\JoinTable(name="product_user",
+     *      joinColumns={@ORM\JoinColumn(name="productId", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="userId", referencedColumnName="id")}
+     *      )
+     */
+    protected $users;
+
     public function __construct() {
         $this->posts = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
 
@@ -256,5 +268,37 @@ class Product implements InputFilterAwareInterface
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUsers(): ArrayCollection
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param ArrayCollection $users
+     */
+    public function setUsers(ArrayCollection $users)
+    {
+        $this->users[] = $users;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @param mixed $sku
+     */
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
     }
 }

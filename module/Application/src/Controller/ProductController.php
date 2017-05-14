@@ -27,9 +27,13 @@ class ProductController extends AbstractActionController
         }
     }
 
+    /**
+     * One to Many doctrine relation
+     * @return JsonResponse
+     */
     public function indexAction()
     {
-        $product = $this->productRepository->findById(2);
+        $product = $this->productRepository->findById(1);
         if($product) {
             //echo $product->getTitle() . '</br>';
 

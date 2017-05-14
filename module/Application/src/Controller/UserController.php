@@ -54,14 +54,37 @@ class UserController extends AbstractActionController
         ]);
     }
 
-    public function manyToOneAction()
+    public function getProductsAction()
     {
         $user = $this->userRepository->findById(2);
 
-        foreach ($user->getPosts() as $post) {
-            print_r($post) . '<br />';
+        if($user) {
+            echo $user->getFirstName(). '<br />';
+
+            foreach ($user->getProducts() as $product) {
+                echo 'Product : ' . $product->getTitle(). ' SKU : ' . $product->getSku() . '<br />';
+            }
         }
 
-        exit();
+        return new JsonResponse([
+
+        ]);
+    }
+
+    public function getPostsAction()
+    {
+        $user = $this->userRepository->findById(2);
+
+        if($user) {
+            echo $user->getFirstName(). '<br />';
+
+            foreach ($user->getProducts() as $product) {
+                echo 'Product : ' . $product->getTitle(). ' SKU : ' . $product->getSku() . '<br />';
+            }
+        }
+
+        return new JsonResponse([
+
+        ]);
     }
 }

@@ -83,10 +83,10 @@ class Country extends \Application\Entity\Country implements \Doctrine\ORM\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'inputFilter', 'id', 'type', 'text'];
+            return ['__isInitialized__', 'inputFilter', 'id', 'type', 'name'];
         }
 
-        return ['__isInitialized__', 'inputFilter', 'id', 'type', 'text'];
+        return ['__isInitialized__', 'inputFilter', 'id', 'type', 'name'];
     }
 
     /**
@@ -240,23 +240,23 @@ class Country extends \Application\Entity\Country implements \Doctrine\ORM\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getText()
+    public function getName()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getText', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', []);
 
-        return parent::getText();
+        return parent::getName();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setText($text)
+    public function setName($name)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setText', [$text]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', [$name]);
 
-        return parent::setText($text);
+        return parent::setName($name);
     }
 
 }

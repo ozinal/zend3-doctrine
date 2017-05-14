@@ -20,7 +20,7 @@ class User implements InputFilterAwareInterface
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer", length=11, name="ID_User")
+     * @ORM\Column(type="integer", length=11)
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
@@ -51,7 +51,7 @@ class User implements InputFilterAwareInterface
     protected $password;
 
     /**
-     * @ORM\Column(type="decimal",precision=15,scale=2)
+     * @ORM\Column(type="decimal",precision=15, scale=2)
      */
     protected $balance;
 
@@ -92,14 +92,31 @@ class User implements InputFilterAwareInterface
 
     /**
      * @ORM\OneToOne(targetEntity="Application\Entity\Country", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="ID_Country", referencedColumnName="ID_Country")
+     * @ORM\JoinColumn(name="id", referencedColumnName="id")
      */
-    protected $ID_Country;
+    protected $countryId;
 
     /**
-     * @ORM\Column(type="integer", length=11, name="ID_Company")
+     * @ORM\Column(type="integer", length=11)
      */
     protected $companyId;
+
+    /**
+     * many customers:many products
+     * NOTE: you don't need to specify "mappedBy" as both sides could be considering "owning"
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Product", mappedBy="users")
+     * if JoinTable is not specified, Doctrine creates one for you
+     * @ORM\JoinTable(name="product_user",
+     *      joinColumns={@ORM\JoinColumn(name="productId", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="userId", referencedColumnName="id")}
+     *      )
+     */
+    protected $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     /**
      * Magic getter to expose protected properties
@@ -504,5 +521,37 @@ class User implements InputFilterAwareInterface
     public function setPosts(\Doctrine\Common\Collections\Collection $posts)
     {
         $this->posts[] = $posts;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProducts()//: ArrayCollection
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param ArrayCollection $products
+     */
+    public function setProducts($products)
+    {
+        $this->products[] = $products;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param mixed $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
     }
 }
